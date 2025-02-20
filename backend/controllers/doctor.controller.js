@@ -11,4 +11,19 @@ const getAllDoctors = async (req, res) => {
   }
 };
 
-module.exports = { getAllDoctors };
+const getAvailableSlots = async (req, res) => {
+  const doctorId = req.params.id;
+  const dateStr = req.query.date;
+
+  try {
+    const result = await DoctorServiceInstance.getSlotAvailable(
+      doctorId,
+      new Date(dateStr)
+    );
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to find slots " + err });
+  }
+};
+
+module.exports = { getAllDoctors, getAvailableSlots };
