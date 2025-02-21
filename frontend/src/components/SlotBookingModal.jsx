@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Box, Typography, TextField } from "@mui/material";
 import SlotList from "./SlotList";
 
-const SlotBookingModal = ({ doctorId, setDoctorId, setDate, slots }) => {
+const SlotBookingModal = ({ doctorId, setDoctorId, setDate, child }) => {
   const handleClose = () => {
     setDoctorId(null);
   };
@@ -37,7 +37,7 @@ const SlotBookingModal = ({ doctorId, setDoctorId, setDate, slots }) => {
           Booking
         </Typography>
         <TextField type="date" onChange={OnDateInputChanged}></TextField>
-        <SlotList slots={slots} />
+        {child}
       </Box>
     </Modal>
   );

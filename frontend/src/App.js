@@ -3,6 +3,8 @@ import "./App.css";
 import axios from "axios";
 import DoctorList from "./components/DoctorList";
 import SlotBookingModal from "./components/SlotBookingModal";
+import SlotList from "./components/SlotList";
+import BookingForm from "./components/BookingForm";
 
 const rootURL = process.env.REACT_APP_Backend_URL || "http://localhost:8082";
 
@@ -11,7 +13,32 @@ function App() {
   const [selectDoc, setDoctorId] = useState();
   const [selectDate, setDate] = useState();
   const [slots, setSlots] = useState();
+  const [selectedSlot, setSelectedSlot] = useState();
 
+  const SubmitAppointment = (e) => {
+    const dt = new Date(selectDate);
+    dt.setHours(selectedSlot.startHH);
+    dt.setMinutes(selectedSlot.startMM);
+    const data = {
+      doctorId: selectDoc.id,
+      date: dt,
+      duration: e.duration,
+      patientName: e.patientName,
+      notes: e.notes,
+    };
+    axios
+      .post(rootURL + "/api/appointments", data)
+      .then(() => {
+        alert("success");
+        setDate(null);
+        setSelectedSlot(null);
+        setSlots(null);
+        setDoctorId(null);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
   useEffect(() => {
     axios
       .get(rootURL + "/api/doctors")
@@ -30,7 +57,7 @@ function App() {
         .get(
           rootURL +
             "/api/doctors/" +
-            selectDoc +
+            selectDoc.id +
             "/slots?date=" +
             selectDate.toLocaleDateString()
         )
@@ -51,7 +78,14 @@ function App() {
         doctorId={selectDoc}
         setDoctorId={setDoctorId}
         setDate={setDate}
-        slots={slots}
+        child={<SlotList slots={slots} openForm={setSelectedSlot} />}
+      />
+      <BookingForm
+        openForm={selectedSlot}
+        date={selectDate}
+        setFormClose={setSelectedSlot}
+        docData={selectDoc}
+        submit={SubmitAppointment}
       />
     </div>
   );

@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
 
-const SlotList = ({ slots }) => {
+const SlotList = ({ slots, openForm }) => {
   const addDoubleDigit = (min) => (min <= 9 ? "0" + min : min);
 
   return (
@@ -36,10 +36,7 @@ const SlotList = ({ slots }) => {
                   {doc.endHH + " : " + addDoubleDigit(doc.endMM)}
                 </TableCell>
                 <TableCell align="right">
-                  <Button
-                    variant="contained"
-                    // onClick={() => setDoctorId(doc["_id"])}
-                  >
+                  <Button variant="contained" onClick={() => openForm(doc)}>
                     Book
                   </Button>
                 </TableCell>

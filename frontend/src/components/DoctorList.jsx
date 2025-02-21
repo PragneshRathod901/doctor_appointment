@@ -46,7 +46,9 @@ const DoctorList = ({ doctorsData, setDoctorId }) => {
                 <TableCell align="right">
                   <Button
                     variant="contained"
-                    onClick={() => setDoctorId(doc["_id"])}
+                    onClick={() =>
+                      setDoctorId({ id: doc["_id"], name: doc.name })
+                    }
                   >
                     Book
                   </Button>
