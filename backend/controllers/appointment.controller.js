@@ -26,7 +26,6 @@ const getAppointmentById = async (req, res) => {
 
 const createAppointment = async (req, res) => {
   try {
-    console.log(req.body);
     const result = await AppointmentServiceInstance.createAppointment(req.body);
     res.status(201).json(result);
   } catch (err) {

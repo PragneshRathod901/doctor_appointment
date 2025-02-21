@@ -26,7 +26,7 @@ const SlotList = ({ slots, openForm }) => {
           {slots &&
             slots.map((doc) => (
               <TableRow
-                key={doc.name}
+                key={doc.startHH + doc.startMM}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell align="right">

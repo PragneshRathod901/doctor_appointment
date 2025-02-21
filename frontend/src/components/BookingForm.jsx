@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 
 const BookingForm = ({ openForm, setFormClose, date, docData, submit }) => {
-  const [duration, setDuration] = useState();
-  const [patientName, setPatientName] = useState();
-  const [notes, setNotes] = useState();
+  const [duration, setDuration] = useState("");
+  const [patientName, setPatientName] = useState("");
+  const [notes, setNotes] = useState("");
 
   const handleClose = () => {
     setFormClose(null);
